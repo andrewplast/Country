@@ -1,10 +1,14 @@
-import main.java.country.Countries;
+package country;
+import country.*;
 import org.junit.Test;
+import junit.framework.TestCase;
 import static junit.framework.Assert.*;
-
 public class CountriesTest {
     @Test
-    public void testCalA() throws Exception {
-        Countries countries = new Countries();
-    }
+      public void testCountries() throws Exception {
+        Countries test = new Countries();
+        test.addCountryInList(new Country("Test"));
+        assertEquals(new Country("Test"),test);
+
+      }
 }
