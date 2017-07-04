@@ -35,7 +35,7 @@ public class SearchCountryIndex {
     @Produces("application/json")
     public Response getAllCountryFromData() throws JSONException {
         CountriesFromData countriesFromData = new CountriesFromData();
-        return jsonSendListCountries(countriesFromData.getAllCountry());
+        return jsonSendListCountries(countriesFromData.getAll());
     }
 
     @Path("/fromdata/{partName}")
@@ -50,15 +50,15 @@ public class SearchCountryIndex {
     @GET
     @Produces("application/json")
     public Response getAllCountryFromXls() throws JSONException, IOException {
-        CountriesFromXls countriesFromXls = new CountriesFromXls();
-        return jsonSendListCountries(countriesFromXls.getAllCountry());
+        CountriesControllerFromXls countriesFromXls = new CountriesControllerFromXls();
+        return jsonSendListCountries(countriesFromXls.getAll());
     }
 
     @Path("/fromxls/{partName}")
     @GET
     @Produces("application/json")
     public Response searchCountryFromXls(@PathParam("partName") String partName) throws JSONException, IOException {
-        CountriesFromXls countriesFromXls = new CountriesFromXls();
+        CountriesControllerFromXls countriesFromXls = new CountriesControllerFromXls();
         return jsonSendListCountries(countriesFromXls.getCountryBySearch(partName));
     }
 
