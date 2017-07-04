@@ -1,65 +1,52 @@
 package country;
 
+import country.dao.InMemoryCountryDAO;
+import country.dao.XLSCountryDAO;
+import country.view.SearchCountryResponse;
+import org.json.JSONException;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.*;
 
 @Path("/")
 public class SearchCountryIndex {
 
-    public Response jsonSendListCountries(List<Country> countries){
-        JSONObject jsonCountryList = new JSONObject();
-        for (Country oneCountryInResult: countries) {
-            jsonCountryList.put(Integer.toString(oneCountryInResult.getKeyValue()), oneCountryInResult.getNameCountry());
-        }
-        return Response.status(Response.Status.OK).entity(jsonCountryList.toString()).build();
-    }
-
     @GET
     @Produces("text/html")
     public Response getIndexPage() {
-        String indexHtml = new String("<a href='./fromdata/'>Поиск по загруженным данным</a><br><a href='./fromxls/'>Поиск по данным XLS</a>");
+        String indexHtml = new String("<a href='./memory/'>Поиск по загруженным данным</a><br><a href='./excel/'>Поиск по данным XLS</a>");
         return Response.status(Response.Status.OK).entity(indexHtml).build();
     }
 
-    @Path("/fromdata")
+    @Path("/memory")
     @GET
     @Produces("application/json")
-    public Response getAllCountryFromData() throws JSONException {
-        CountriesFromData countriesFromData = new CountriesFromData();
-        return jsonSendListCountries(countriesFromData.getAll());
+    public Response getAllCountryMemory() throws JSONException {
+        return new SearchCountryResponse().getResponse(new InMemoryCountryDAO().getAll());
     }
 
-    @Path("/fromdata/{partName}")
+    @Path("/memory/{substring}")
     @GET
     @Produces("application/json")
-    public Response searchCountryFromData(@PathParam("partName") String partName) throws JSONException {
-        CountriesFromData countriesFromData = new CountriesFromData();
-        return jsonSendListCountries(countriesFromData.getCountryBySearch(partName));
+    public Response findCountryMemory(@PathParam("substring") String substring) throws JSONException {
+        return new SearchCountryResponse().getResponse(new InMemoryCountryDAO().findCountries(substring));
     }
 
-    @Path("/fromxls")
+    @Path("/excel")
     @GET
     @Produces("application/json")
-    public Response getAllCountryFromXls() throws JSONException, IOException {
-        CountriesControllerFromXls countriesFromXls = new CountriesControllerFromXls();
-        return jsonSendListCountries(countriesFromXls.getAll());
+    public Response getAllCountryXls() throws JSONException, IOException {
+        return new SearchCountryResponse().getResponse(new XLSCountryDAO().getAll());
     }
 
-    @Path("/fromxls/{partName}")
+    @Path("/excel/{substring}")
     @GET
     @Produces("application/json")
-    public Response searchCountryFromXls(@PathParam("partName") String partName) throws JSONException, IOException {
-        CountriesControllerFromXls countriesFromXls = new CountriesControllerFromXls();
-        return jsonSendListCountries(countriesFromXls.getCountryBySearch(partName));
+    public Response findCountriesXls(@PathParam("substring") String substring) throws JSONException, IOException {
+        return new SearchCountryResponse().getResponse(new XLSCountryDAO().findCountries(substring));
     }
-
 }

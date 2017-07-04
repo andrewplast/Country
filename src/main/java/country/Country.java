@@ -1,18 +1,15 @@
 package country;
 
 public class Country {
-    private String name;
 
-    Country(String name) {
-        setNameCountry(name);
-    }
-    public void setNameCountry(String name) {
+    private final String name;
+
+    public Country(String name) {
         this.name = name;
     }
-    public String getNameCountry() {
+
+    public String getName() {
         return name;
     }
-    public int getKeyValue() {
-        return this.name.hashCode();
-    }
+
 }
