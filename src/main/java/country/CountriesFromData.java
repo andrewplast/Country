@@ -1,7 +1,9 @@
-package main.java.country;
+package country;
 
-public class CountriesJson extends Countries {
-    CountriesJson() {
+import java.util.List;
+
+public class CountriesFromData extends Countries {
+     CountriesFromData() {
         addCountryInList(new Country("Россия"));
         addCountryInList(new Country("Россия"));
         addCountryInList(new Country("Россия"));
@@ -23,5 +25,5 @@ public class CountriesJson extends Countries {
         addCountryInList(new Country("Япония"));
         addCountryInList(new Country("Австралия"));
         addCountryInList(new Country("Индия"));
-    }
+     }
 }

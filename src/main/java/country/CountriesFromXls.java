@@ -1,6 +1,5 @@
 package country;
 
-import org.apache.poi.hssf.extractor.ExcelExtractor;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,25 +11,26 @@ import java.util.*;
 public class CountriesFromXls extends Countries {
 
     CountriesFromXls() throws IOException {
-        addCountryInList(new Country(getClass().getResource("Countries.xls")));
+       readCountryFromXls("Countries.xls");
+    }
+    void readCountryFromXls(String fileName) {
+        try {
+            FileInputStream file = new FileInputStream(new File(getClass().getResource("../"+fileName).toURI()));
+            HSSFWorkbook workbook = new HSSFWorkbook(file);
 
-        /*FileInputStream file = new FileInputStream(new File("./Countries.xls"));
-        HSSFWorkbook workbook = new HSSFWorkbook(file);
-
-        Sheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> it = sheet.iterator();
-        while (it.hasNext()) {
-            Row row = it.next();
-            Iterator<Cell> cells = row.iterator();
-            while (cells.hasNext()) {
-                Cell cell = cells.next();
-                int cellType = cell.getCellType();
-                switch (cellType) {
-                    case Cell.CELL_TYPE_STRING:
-                        addCountryInList(new Country(cell.getStringCellValue()));
-                        break;
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> it = sheet.iterator();
+            while (it.hasNext()) {
+                Row row = it.next();
+                Iterator<Cell> cells = row.iterator();
+                while (cells.hasNext()) {
+                    Cell cell = cells.next();
+                    addCountryInList(new Country(cell.getStringCellValue()));
                 }
             }
-        }*/
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

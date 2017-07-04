@@ -1,9 +1,9 @@
-package main.java.country;
+package country;
 
 public class Country {
     private String name;
 
-    Country(String nameCountry) {
+    Country(String name) {
         setNameCountry(name);
     }
     public void setNameCountry(String name) {

@@ -1,4 +1,4 @@
-package main.java.country;
+package country;
 import java.util.*;
 
 public class Countries {
