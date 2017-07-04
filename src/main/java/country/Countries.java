@@ -1,37 +1,22 @@
 package country;
 import java.util.*;
 
-public class Countries {
+public abstract class Countries {
+    CountryController countryController;
 
-    private List<Country> countries = new ArrayList<Country>();
-
-    void setCountryList(List<Country> listCountries) {
-        countries = listCountries;
+    public void setCountryList(List<Country> listCountries) {
+        countryController.setCountryList(listCountries);
     }
-    void addCountryInList(Country newCountry) {
-        if (!countries.contains(newCountry))
-            countries.add(newCountry);
+    public List<Country> getAll() {
+        return countryController.getAll();
     }
-    boolean isCountryInList(Country searchCountry) {
-        return countries.contains(searchCountry);
+    public List<Country> getCountryBySearch(String partName) {
+        return countryController.getCountryBySearch(partName);
     }
-    void deleteCountryFromList(Country deleteCountry) {
-        if (countries.contains(deleteCountry)) {
-            countries.remove(deleteCountry);
-        }
+    public void delete(Country deleteCountry) {
+        countryController.delete(deleteCountry);
     }
-    private boolean constrainPartNameInCountry(Country oneCountryForConstrain, String partOfName) {
-        return oneCountryForConstrain.getNameCountry().toUpperCase().contains(partOfName.toUpperCase());
-    }
-    public List<Country> getCountryBySearch(String partNameCountry) {
-        List<Country> resultOfSearch = new ArrayList<Country>();
-        for (Country oneCountryInList: countries) {
-            if (constrainPartNameInCountry(oneCountryInList, partNameCountry))
-                resultOfSearch.add(oneCountryInList);
-        }
-        return resultOfSearch;
-    }
-    public List<Country> getAllCountry() {
-        return countries;
+    public void add(Country newCountry) {
+        countryController.add(newCountry);
     }
 }
