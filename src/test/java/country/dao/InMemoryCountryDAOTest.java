@@ -1,27 +1,35 @@
 package country.dao;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class InMemoryCountryDAOTest {
+
+    private InMemoryCountryDAO test;
+
+    @Before
+    public void initClass() {
+        InMemoryCountryDAO test = new InMemoryCountryDAO();
+    }
+
     @Test
-    public void createCountries() {
+    public void create() {
         assertNotNull(new InMemoryCountryDAO());
     }
 
     @Test
     public void delete() {
-        InMemoryCountryDAO deleteTest = new InMemoryCountryDAO();
         try {
-            deleteTest.delete(new Country("Россия"));
+            test.delete(new Country("Россия"));
         } catch (Exception e) {
-            fail("Ошибка удаления объекта");
+            fail("Ошибка удаления объекта: " + e.getMessage());
         }
         Country delete = new Country("Test");
-        deleteTest.add(delete);
-        deleteTest.delete(delete);
-        assertTrue("Удаленная страна осталась в списке", deleteTest.find("Test").isEmpty());
+        test.add(delete);
+        test.delete(delete);
+        assertTrue("Удаленная страна осталась в списке", test.find("Test").isEmpty());
     }
 
     @Test
@@ -31,16 +39,14 @@ public class InMemoryCountryDAOTest {
 
     @Test
     public void add() {
-        InMemoryCountryDAO addTest = new InMemoryCountryDAO();
-        addTest.add(new Country("Test"));
-        assertFalse("Не найдена страна после добавления в список",addTest.find("Test").isEmpty());
+        test.add(new Country("Test"));
+        assertFalse("Не найдена страна после добавления в список",test.find("Test").isEmpty());
     }
 
     @Test
     public void find() {
-        InMemoryCountryDAO addTest = new InMemoryCountryDAO();
-        addTest.add(new Country("Test"));
-        assertFalse("Поиск заведомо существующей страны вернул пустой список",addTest.find("Test").isEmpty());
+        test.add(new Country("Test"));
+        assertFalse("Поиск заведомо существующей страны вернул пустой список",test.find("Test").isEmpty());
     }
 
 
