@@ -1,9 +1,6 @@
 package country.dao;
 
-import country.Country;
-
 import java.util.Collection;
-import java.util.List;
 
 public interface CountryDAO {
 
