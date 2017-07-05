@@ -13,7 +13,7 @@ import java.util.*;
 
 public class XLSCountryDAO implements CountryDAO {
 
-    Collection<Country> countries = new HashSet<>();
+    private Collection<Country> countries = new HashSet<>();
 
     public XLSCountryDAO() throws IOException {
         readXls("Countries.xls");
