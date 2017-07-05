@@ -25,12 +25,20 @@ public class InMemoryCountryDAOTest {
         Country delete = new Country("Test");
         test.add(delete);
         test.delete(delete);
-        assertTrue("Удаленная страна осталась в списке", test.find("Test").isEmpty());
+        assertTrue("Удаленная страна " + delete.getName() + " осталась в списке", test.find("Test").isEmpty());
+        delete = new Country("Other test");
+        test.add(delete);
+        test.delete(delete);
+        assertTrue("Удаленная страна " + delete.getName() + " осталась в списке", test.find("Other test").isEmpty());
+        delete = new Country("Third test");
+        test.add(delete);
+        test.delete(delete);
+        assertTrue("Удаленная страна " + delete.getName() + " осталась в списке", test.find("Other test").isEmpty());
     }
 
     @Test
     public void getAll() {
-        assertFalse("Метод getAll вернул пустой список", new InMemoryCountryDAO().getAll().isEmpty());
+        assertFalse("Метод getAll вернул пустой список", test.getAll().isEmpty());
     }
 
     @Test
@@ -39,22 +47,24 @@ public class InMemoryCountryDAOTest {
         test.add(new Country("Test"));
         test.add(new Country("New country"));
         test.add(new Country("Very long country name with many words and many charachters"));
-        assertFalse("Не найдена страна Test после добавления в список",test.find("Test").isEmpty());
-        assertFalse("Не найдена страна TEST после добавления в список",test.find("TEST").isEmpty());
-        assertFalse("Не найдена страна test после добавления в список",test.find("test").isEmpty());
-        assertFalse("Не найдена страна characters после добавления в список",test.find("charachters").isEmpty());
-        assertFalse("Не найдена страна NEW после добавления в список",test.find("NEW").isEmpty());
-        assertFalse("Не найдена страна ew после добавления в список",test.find("ew").isEmpty());
+        assertFalse("Не найдена страна Test после добавления в список", test.find("Test").isEmpty());
+        assertFalse("Не найдена страна TEST после добавления в список", test.find("TEST").isEmpty());
+        assertFalse("Не найдена страна test после добавления в список", test.find("test").isEmpty());
+        assertFalse("Не найдена страна characters после добавления в список", test.find("charachters").isEmpty());
+        assertFalse("Не найдена страна NEW после добавления в список", test.find("NEW").isEmpty());
+        assertFalse("Не найдена страна ew после добавления в список", test.find("ew").isEmpty());
 
-        assertTrue("Не найдена страна Wrong, в списке ее не было",test.find("Wrong").isEmpty());
-        assertTrue("Не найдена страна WRONG, в списке ее не было",test.find("WRONG").isEmpty());
-        assertTrue("Не найдена страна ERROR, в списке ее не было",test.find("ERROR").isEmpty());
+        assertTrue("Не найдена страна Wrong, в списке ее не было", test.find("Wrong").isEmpty());
+        assertTrue("Не найдена страна WRONG, в списке ее не было", test.find("WRONG").isEmpty());
+        assertTrue("Не найдена страна ERROR, в списке ее не было", test.find("ERROR").isEmpty());
     }
 
     @Test
     public void find() {
         test.add(new Country("Test"));
-        assertFalse("Поиск заведомо существующей страны вернул пустой список",test.find("Test").isEmpty());
+        test.add(new Country("Second test"));
+        assertFalse("Поиск заведомо существующей страны Test вернул пустой список", test.find("Test").isEmpty());
+        assertFalse("Поиск заведомо существующей страны Second test вернул пустой список", test.find("second test").isEmpty());
     }
 
 
