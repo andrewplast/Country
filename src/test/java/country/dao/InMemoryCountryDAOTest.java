@@ -11,7 +11,7 @@ public class InMemoryCountryDAOTest {
 
     @Before
     public void initClass() {
-        InMemoryCountryDAO test = new InMemoryCountryDAO();
+        test = new InMemoryCountryDAO();
     }
 
     @Test
@@ -21,11 +21,6 @@ public class InMemoryCountryDAOTest {
 
     @Test
     public void delete() {
-        try {
-            test.delete(new Country("Россия"));
-        } catch (Exception e) {
-            fail("Ошибка удаления объекта: " + e.getMessage());
-        }
         Country delete = new Country("Test");
         test.add(delete);
         test.delete(delete);
