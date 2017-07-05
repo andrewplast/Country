@@ -2,10 +2,6 @@ package country.dao;
 
 import org.junit.Test;
 
-import country.Country;
-import java.util.Collection;
-import java.util.Collections;
-
 import static org.junit.Assert.*;
 
 public class InMemoryCountryDAOTest {

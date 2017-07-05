@@ -1,4 +1,4 @@
-package country;
+package country.dao;
 
 public class Country {
 

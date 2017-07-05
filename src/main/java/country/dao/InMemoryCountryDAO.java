@@ -1,7 +1,5 @@
 package country.dao;
 
-import country.Country;
-
 import java.util.*;
 
 public class InMemoryCountryDAO implements CountryDAO {

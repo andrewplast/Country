@@ -1,28 +1,14 @@
-/*import country;
-import country.Country;
+package country;
+
+import country.dao.Country;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class CountryTest {
     @Test
-    public void setNameCountry() throws Exception {
-        assertNotNull(new Country("Test"));
-        assertNotNull(new Country());
+    public void getName() throws Exception {
+        assertTrue("Имя созданной страны не совпадает с именем в конструкторе", "Test"==new Country("Test").getName());
     }
 
-    @Test
-    public void getNameCountry() throws Exception {
-        Country test = new Country("Test");
-        assertEquals("Test", test.getNameCountry());
-    }
-
-    @Test
-    public void getKeyValue() throws Exception {
-        Country test = new Country("Test");
-        assertNotNull(test.getKeyValue());
-        assertEquals("Test".hashCode(),test.getKeyValue());
-    }
-
-}*/
+}
