@@ -1,26 +1,51 @@
 package country.dao;
 
+import org.junit.Test;
+
+import country.Country;
+import java.util.Collection;
+import java.util.Collections;
+
 import static org.junit.Assert.*;
 
 public class InMemoryCountryDAOTest {
-    @org.junit.Test
-    public void getAll() throws Exception {
-
+    @Test
+    public void createCountries() {
+        assertNotNull(new InMemoryCountryDAO());
     }
 
-    @org.junit.Test
-    public void findCountries() throws Exception {
-
+    @Test
+    public void delete() {
+        InMemoryCountryDAO deleteTest = new InMemoryCountryDAO();
+        try {
+            deleteTest.delete(new Country("Россия"));
+        } catch (Exception e) {
+            fail("Ошибка удаления объекта");
+        }
+        Country delete = new Country("Test");
+        deleteTest.add(delete);
+        deleteTest.delete(delete);
+        assertTrue("Удаленная страна осталась в списке", deleteTest.findCountries("Test").isEmpty());
     }
 
-    @org.junit.Test
-    public void delete() throws Exception {
-
+    @Test
+    public void getAll() {
+        assertFalse("Метод getAll вернул пустой список", new InMemoryCountryDAO().getAll().isEmpty());
     }
 
-    @org.junit.Test
-    public void add() throws Exception {
-
+    @Test
+    public void add() {
+        InMemoryCountryDAO addTest = new InMemoryCountryDAO();
+        addTest.add(new Country("Test"));
+        assertFalse("Не найдена страна после добавления в список",addTest.findCountries("Test").isEmpty());
     }
+
+    @Test
+    public void findCountry() {
+        InMemoryCountryDAO addTest = new InMemoryCountryDAO();
+        addTest.add(new Country("Test"));
+        assertFalse("Поиск заведомо существующей страны вернул пустой список",addTest.findCountries("Test").isEmpty());
+    }
+
 
 }
