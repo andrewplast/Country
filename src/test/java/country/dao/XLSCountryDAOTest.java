@@ -21,7 +21,7 @@ public class XLSCountryDAOTest {
         Country delete = new Country("Test");
         deleteTest.add(delete);
         deleteTest.delete(delete);
-        assertTrue("Удаленная страна осталась в списке", deleteTest.findCountries("Test").isEmpty());
+        assertTrue("Удаленная страна осталась в списке", deleteTest.find("Test").isEmpty());
     }
 
     @Test
@@ -33,13 +33,13 @@ public class XLSCountryDAOTest {
     public void add() {
         InMemoryCountryDAO addTest = new InMemoryCountryDAO();
         addTest.add(new Country("Test"));
-        assertFalse("Не найдена страна после добавления в список",addTest.findCountries("Test").isEmpty());
+        assertFalse("Не найдена страна после добавления в список",addTest.find("Test").isEmpty());
     }
 
     @Test
     public void findCountry() {
         InMemoryCountryDAO addTest = new InMemoryCountryDAO();
         addTest.add(new Country("Test"));
-        assertFalse("Поиск заведомо существующей страны вернул пустой список",addTest.findCountries("Test").isEmpty());
+        assertFalse("Поиск заведомо существующей страны вернул пустой список",addTest.find("Test").isEmpty());
     }
 }
