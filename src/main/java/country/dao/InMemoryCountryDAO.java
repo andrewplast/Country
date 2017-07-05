@@ -34,7 +34,7 @@ public class InMemoryCountryDAO implements CountryDAO {
         return countries;
     }
 
-    public Collection<Country> findCountries(String substring) {
+    public Collection<Country> find(String substring) {
         Collection<Country> result = new HashSet<>();
         for (Country country : countries) {
             if (nameContainsSubstring(country, substring))

@@ -33,7 +33,7 @@ public class SearchCountryIndex {
     @GET
     @Produces("application/json")
     public Response findCountryMemory(@PathParam("substring") String substring) throws JSONException {
-        return new SearchCountryResponse().getResponse(new InMemoryCountryDAO().findCountries(substring));
+        return new SearchCountryResponse().getResponse(new InMemoryCountryDAO().find(substring));
     }
 
     @Path("/excel")
@@ -47,6 +47,6 @@ public class SearchCountryIndex {
     @GET
     @Produces("application/json")
     public Response findCountriesXls(@PathParam("substring") String substring) throws JSONException, IOException {
-        return new SearchCountryResponse().getResponse(new XLSCountryDAO().findCountries(substring));
+        return new SearchCountryResponse().getResponse(new XLSCountryDAO().find(substring));
     }
 }

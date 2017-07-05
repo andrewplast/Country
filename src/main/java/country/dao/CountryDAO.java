@@ -6,7 +6,7 @@ public interface CountryDAO {
 
     Collection<Country> getAll();
 
-    Collection<Country> findCountries(String substring);
+    Collection<Country> find(String substring);
 
     void delete(Country country);
 
