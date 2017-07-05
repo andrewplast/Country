@@ -39,7 +39,7 @@ public class InMemoryCountryDAO implements CountryDAO {
     public Collection<Country> findCountries(String substring) {
         Collection<Country> result = new HashSet<>();
         for (Country country : countries) {
-            if (containsSubstring(country, substring))
+            if (nameContainsSubstring(country, substring))
                 result.add(country);
         }
         return result;
@@ -54,7 +54,7 @@ public class InMemoryCountryDAO implements CountryDAO {
             countries.add(country);
     }
 
-    private boolean containsSubstring(Country country, String substring) {
+    private boolean nameContainsSubstring(Country country, String substring) {
         return country.getName().toUpperCase().contains(substring.toUpperCase());
     }
 }
