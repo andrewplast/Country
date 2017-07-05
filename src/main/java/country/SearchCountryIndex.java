@@ -18,7 +18,7 @@ public class SearchCountryIndex {
     @GET
     @Produces("text/html")
     public Response getIndexPage() {
-        String indexHtml = new String("<a href='./memory/'>Поиск по загруженным данным</a><br><a href='./excel/'>Поиск по данным XLS</a>");
+        String indexHtml = "<a href='./memory/'>Поиск по загруженным данным</a><br><a href='./excel/'>Поиск по данным XLS</a>";
         return Response.status(Response.Status.OK).entity(indexHtml).build();
     }
 

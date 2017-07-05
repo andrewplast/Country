@@ -2,7 +2,7 @@ package country.dao;
 
 import java.util.Collection;
 
-public interface CountryDAO {
+interface CountryDAO {
 
     Collection<Country> getAll();
 
