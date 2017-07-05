@@ -26,27 +26,27 @@ public class SearchCountryIndex {
     @GET
     @Produces("application/json")
     public Response getAllCountryMemory() throws JSONException {
-        return new SearchCountryResponse().getResponse(new InMemoryCountryDAO().getAll());
+        return SearchCountryResponse.getResponse(new InMemoryCountryDAO().getAll());
     }
 
     @Path("/memory/{substring}")
     @GET
     @Produces("application/json")
     public Response findCountryMemory(@PathParam("substring") String substring) throws JSONException {
-        return new SearchCountryResponse().getResponse(new InMemoryCountryDAO().find(substring));
+        return SearchCountryResponse.getResponse(new InMemoryCountryDAO().find(substring));
     }
 
     @Path("/excel")
     @GET
     @Produces("application/json")
     public Response getAllCountryXls() throws JSONException, IOException {
-        return new SearchCountryResponse().getResponse(new XLSCountryDAO().getAll());
+        return SearchCountryResponse.getResponse(new XLSCountryDAO().getAll());
     }
 
     @Path("/excel/{substring}")
     @GET
     @Produces("application/json")
     public Response findCountriesXls(@PathParam("substring") String substring) throws JSONException, IOException {
-        return new SearchCountryResponse().getResponse(new XLSCountryDAO().find(substring));
+        return SearchCountryResponse.getResponse(new XLSCountryDAO().find(substring));
     }
 }

@@ -1,4 +1,4 @@
-package country;
+package country.dao;
 
 import country.dao.Country;
 import org.junit.Test;
