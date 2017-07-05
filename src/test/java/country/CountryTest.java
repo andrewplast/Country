@@ -10,5 +10,4 @@ public class CountryTest {
     public void getName() throws Exception {
         assertTrue("Имя созданной страны не совпадает с именем в конструкторе", "Test"==new Country("Test").getName());
     }
-
 }
