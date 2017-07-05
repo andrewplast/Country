@@ -5,12 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class XLSCountryDAOTest {
 
     private XLSCountryDAO test;
 
     @Before
-    public void initClass() {
+    public void initClass() throws IOException {
         test = new XLSCountryDAO();
     }
 
