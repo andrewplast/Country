@@ -1,4 +1,4 @@
-package main.java.country.view;
+package country.view;
 
 import country.dao.InMemoryCountryDAO;
 import org.junit.Test;
