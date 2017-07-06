@@ -1,4 +1,4 @@
-package country.view;
+package main.java.country.view;
 
 import country.dao.Country;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package country.view;
+package main.java.country.view;
 
 import country.dao.InMemoryCountryDAO;
 import org.junit.Test;
@@ -9,6 +9,6 @@ public class SearchCountryResponseTest {
     @Test
     public void testResponse() {
         InMemoryCountryDAO testDAO = new InMemoryCountryDAO();
-        assertNotNull(country.view.SearchCountryResponse.getResponse(testDAO.getAll()));
+        assertNotNull(main.java.country.view.SearchCountryResponse.getResponse(testDAO.getAll()));
     }
 }

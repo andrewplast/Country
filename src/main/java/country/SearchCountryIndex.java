@@ -2,7 +2,7 @@ package country;
 
 import country.dao.InMemoryCountryDAO;
 import country.dao.XLSCountryDAO;
-import country.view.SearchCountryResponse;
+import main.java.country.view.SearchCountryResponse;
 import org.json.JSONException;
 
 import javax.ws.rs.GET;
