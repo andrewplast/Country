@@ -1,7 +1,8 @@
-package main.java.country.view;
+package country.view;
 
-import country.dao.Country;
+import country.Country;
 import org.json.JSONObject;
+
 
 import javax.ws.rs.core.Response;
 import java.util.Collection;

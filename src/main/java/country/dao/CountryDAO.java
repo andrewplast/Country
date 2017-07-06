@@ -1,5 +1,7 @@
 package country.dao;
 
+import country.Country;
+
 import java.util.Collection;
 
 interface CountryDAO {
