@@ -9,6 +9,6 @@ public class SearchCountryResponseTest {
     @Test
     public void testResponse() {
         InMemoryCountryDAO testDAO = new InMemoryCountryDAO();
-        assertNotNull(main.java.country.view.SearchCountryResponse.getResponse(testDAO.getAll()));
+        assertNotNull(country.view.SearchCountryResponse.getResponse(testDAO.getAll()));
     }
 }

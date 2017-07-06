@@ -1,6 +1,6 @@
-package country.dao;
+package country;
 
-import country.dao.Country;
+import country.Country;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

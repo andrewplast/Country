@@ -2,6 +2,7 @@ package country.dao;
 
 import static org.junit.Assert.*;
 
+import country.Country;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,9 +18,8 @@ public class XLSCountryDAOTest{
     }
 
     @Test
-    public void create() throws IOException{
+    public void create() throws IOException  {
         assertNotNull(new XLSCountryDAO());
-        assertNotNull(new XLSCountryDAO().getAll());
     }
 
     @Test
@@ -32,32 +32,34 @@ public class XLSCountryDAOTest{
 
     @Test
     public void getAll() {
-        assertFalse("Метод getAll вернул пустой список", new InMemoryCountryDAO().getAll().isEmpty());
+        assertFalse("Метод getAll вернул пустой список", test.getAll().isEmpty());
+    }
+
+    public boolean assertFindCountry() {
+        test.add(new Country(""));
+        test.add(new Country("TEST"));
+        test.add(new Country("New country"));
+        return ((test.find("Test").isEmpty()) && (test.find("TEST").isEmpty()) && (test.find("test").isEmpty()) && (test.find("NEW").isEmpty()) && (test.find("ew").isEmpty()));
+    }
+
+    public boolean assertAddSizeNameCountry() {
+        test.add(new Country(""));
+        test.add(new Country("Very long country name with many words and many charachters"));
+        return (test.find("charachters").isEmpty());
+    }
+
+    public boolean assertNoAddCountry() {
+        return (test.find("Wrong").isEmpty() && test.find("WRONG").isEmpty() && test.find("ERROR").isEmpty());
     }
 
     @Test
     public void add() {
-        test.add(new Country(""));
-        test.add(new Country("Test"));
-        test.add(new Country("New country"));
-        test.add(new Country("Very long country name with many words and many charachters"));
-        assertFalse("Не найдена страна Test после добавления в список", test.find("Test").isEmpty());
-        assertFalse("Не найдена страна TEST после добавления в список", test.find("TEST").isEmpty());
-        assertFalse("Не найдена страна test после добавления в список", test.find("test").isEmpty());
-        assertFalse("Не найдена страна characters после добавления в список", test.find("charachters").isEmpty());
-        assertFalse("Не найдена страна NEW после добавления в список", test.find("NEW").isEmpty());
-        assertFalse("Не найдена страна ew после добавления в список", test.find("ew").isEmpty());
-
-        assertTrue("Не найдена страна Wrong, в списке ее не было", test.find("Wrong").isEmpty());
-        assertTrue("Не найдена страна WRONG, в списке ее не было", test.find("WRONG").isEmpty());
-        assertTrue("Не найдена страна ERROR, в списке ее не было", test.find("ERROR").isEmpty());
+        assertFalse("Проверка добавления стран с длинным и коротким названием", assertAddSizeNameCountry());
+        assertTrue("Найдена страна, которая не была добавлены в список", assertNoAddCountry());
     }
 
     @Test
     public void find() {
-        test.add(new Country("Test"));
-        test.add(new Country("Second test"));
-        assertFalse("Поиск заведомо существующей страны Test вернул пустой список", test.find("Test").isEmpty());
-        assertFalse("Поиск заведомо существующей страны Second test вернул пустой список", test.find("second test").isEmpty());
+        assertFalse("После добавления страны не работает регистронезависимый поиск", assertFindCountry());
     }
 }
