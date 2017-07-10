@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class SearchCountryResponseTest {
     @Test
-    public void testResponse() {
+    public void shouldGetRespounse() {
         InMemoryCountryDAO testDAO = new InMemoryCountryDAO();
         assertNotNull(country.view.SearchCountryResponse.getResponse(testDAO.getAll()));
     }
