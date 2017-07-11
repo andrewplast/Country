@@ -1,20 +1,21 @@
 package country.dao;
 
-import static org.junit.Assert.*;
-
 import country.Country;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class XLSCountryDAOTest{
+import static org.testng.Assert.*;
 
-    private XLSCountryDAO test;
+public class XLSCountryDAOTest {
 
-    @Before
-    public void canInitClass() throws IOException {
-        test = new XLSCountryDAO();
+    private XLSCountryDAO countries;
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        countries = new XLSCountryDAO();
     }
 
     @Test
@@ -23,43 +24,78 @@ public class XLSCountryDAOTest{
     }
 
     @Test
-    public void shouldDeleteCountry() {
-        Country delete = new Country("Test");
-        test.add(delete);
-        test.delete(delete);
-        assertTrue(test.find("Test").isEmpty());
-    }
-
-    @Test
     public void shouldGetAllCountries() {
-        assertFalse(test.getAll().isEmpty());
+        assertFalse(countries.getAll().isEmpty());
     }
 
-    public boolean assertFindCountryBySubstringIgnoreCase() {
-        test.add(new Country(""));
-        test.add(new Country("TEST"));
-        test.add(new Country("New country"));
-        return ((test.find("Test").isEmpty()) && (test.find("TEST").isEmpty()) && (test.find("test").isEmpty()) && (test.find("NEW").isEmpty()) && (test.find("ew").isEmpty()));
+    @DataProvider(name = "addCountryDataProvider")
+    public Object[][] addCountryProvider() {
+        return new Object[][]{
+                {"TEST", "TES"},
+                {"test", "TEST"},
+                {"New country", "New"},
+                {"Very long country name with many words and many charachters", "LONG"},
+                {"Add countryName with Name", "name"}
+        };
     }
 
-    public boolean assertAddCountryWithDifferentNameSize() {
-        test.add(new Country(""));
-        test.add(new Country("Very long country name with many words and many charachters"));
-        return (test.find("charachters").isEmpty());
+    @Test(dataProvider = "addCountryDataProvider")
+    public void shouldAddCountry(String nameCountry, String searchSubstring) {
+        countries.add(new Country(nameCountry));
+        assertFalse(countries.find(searchSubstring).isEmpty());
     }
 
-    public boolean assertFindCountryWithoutAdd() {
-        return (test.find("Wrong").isEmpty() && test.find("WRONG").isEmpty() && test.find("ERROR").isEmpty());
+    @DataProvider(name = "deleteCountryDataProvider")
+    public Object[][] deleteCountryProvider() {
+        return new Object[][]{
+                {"TEST"},
+                {"test"},
+                {"New country"},
+                {"Very long country name with many words and many charachters"},
+                {"Add countryName with Name"}
+        };
     }
 
-    @Test
-    public void shouldAddCountry() {
-        assertFalse(assertAddCountryWithDifferentNameSize());
-        assertTrue(assertFindCountryWithoutAdd());
+    @Test(dataProvider = "deleteCountryDataProvider")
+    public void shouldDeleteCountry(String nameCountry) {
+        Country delete = new Country(nameCountry);
+        countries.add(delete);
+        countries.delete(delete);
+        assertTrue(countries.find(nameCountry).isEmpty());
     }
 
-    @Test
-    public void shouldFindCountryBySubstringIgnoreCase() {
-        assertFalse(assertFindCountryBySubstringIgnoreCase());
+    @DataProvider(name = "findCountryBySubstring")
+    public Object[][] findCountryBySubstringProvider() {
+        return new Object[][]{
+                {"TEST", "TE"},
+                {"test", "est"},
+                {"New country", "new"},
+                {"Very long country name with many words and many charachters", "long"},
+                {"Add countryName with Name", "with Name"}
+        };
     }
+
+    @Test(dataProvider = "findCountryBySubstring")
+    public void shouldFindCountryBySubstring(String nameCountry, String substring) {
+        countries.add(new Country(nameCountry));
+        assertFalse(countries.find(substring).isEmpty());
+    }
+
+    @DataProvider(name = "findCountryIgnoreCase")
+    public Object[][] findCountryIgnoreCaseProvider() {
+        return new Object[][]{
+                {"TEST", "te"},
+                {"test", "TEST"},
+                {"New country", "nEW COUNTRY"},
+                {"Very long country name with many words and many charachters", "CHARACHTERS"},
+                {"Add countryName with Name", "nAME WITH nAME"}
+        };
+    }
+
+    @Test(dataProvider = "findCountryIgnoreCase")
+    public void shouldFindCountryIgnoreCase(String nameCountry, String substring) {
+        countries.add(new Country(nameCountry));
+        assertFalse(countries.find(substring).isEmpty());
+    }
+
 }
