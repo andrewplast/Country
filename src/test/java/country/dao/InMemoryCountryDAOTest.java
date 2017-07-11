@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-
 import static org.testng.Assert.*;
 
 public class InMemoryCountryDAOTest {
@@ -27,75 +26,54 @@ public class InMemoryCountryDAOTest {
         assertFalse(countries.getAll().isEmpty());
     }
 
-    @DataProvider(name = "addCountryDataProvider")
-    public Object[][] addCountryProvider() {
-        return new Object[][]{
-                {"TEST", "TES"},
-                {"test", "TEST"},
-                {"New country", "New"},
-                {"Very long country name with many words and many charachters", "LONG"},
-                {"Add countryName with Name", "name"}
-        };
+    @Test()
+    public void shouldAddCountry() {
+        Country add = new Country("Add");
+        countries.add(add);
+        assertTrue(countries.getAll().contains(add));
     }
 
-    @Test(dataProvider = "addCountryDataProvider")
-    public void shouldAddCountry(String nameCountry, String searchSubstring) {
-        countries.add(new Country(nameCountry));
-        assertFalse(countries.find(searchSubstring).isEmpty());
-    }
-
-    @DataProvider(name = "deleteCountryDataProvider")
-    public Object[][] deleteCountryProvider() {
-        return new Object[][]{
-                {"TEST"},
-                {"test"},
-                {"New country"},
-                {"Very long country name with many words and many charachters"},
-                {"Add countryName with Name"}
-        };
-    }
-
-    @Test(dataProvider = "deleteCountryDataProvider")
-    public void shouldDeleteCountry(String nameCountry) {
-        Country delete = new Country(nameCountry);
+    @Test()
+    public void shouldDeleteCountry() {
+        Country delete = new Country("Delete");
         countries.add(delete);
         countries.delete(delete);
-        assertTrue(countries.find(nameCountry).isEmpty());
+        assertFalse(countries.getAll().contains(delete));
     }
 
-    @DataProvider(name = "findCountryBySubstring")
-    public Object[][] findCountryBySubstringProvider() {
+    @DataProvider(name = "stringWithSubstringForSearch")
+    public Object[][] stringWithSubstringForSearch() {
         return new Object[][]{
                 {"TEST", "TE"},
                 {"test", "est"},
-                {"New country", "new"},
-                {"Very long country name with many words and many charachters", "long"},
-                {"Add countryName with Name", "with Name"}
+                {"Test", "Test"}
         };
     }
 
-    @Test(dataProvider = "findCountryBySubstring")
+    @Test(dataProvider = "stringWithSubstringForSearch")
     public void shouldFindCountryBySubstring(String nameCountry, String substring) {
         countries.add(new Country(nameCountry));
-        assertFalse(countries.find(substring).isEmpty());
+        assertFalse(countries.find(substring).contains(new Country(nameCountry)));
     }
 
-    @DataProvider(name = "findCountryIgnoreCase")
-    public Object[][] findCountryIgnoreCaseProvider() {
+    @DataProvider(name = "stringInDifferentRegister")
+    public Object[][] stringDifferentRegister() {
         return new Object[][]{
-                {"TEST", "te"},
+                {"TEST", "test"},
                 {"test", "TEST"},
-                {"New country", "nEW COUNTRY"},
-                {"Very long country name with many words and many charachters", "CHARACHTERS"},
-                {"Add countryName with Name", "nAME WITH nAME"}
+                {"Test", "tEST"}
         };
     }
 
-    @Test(dataProvider = "findCountryIgnoreCase")
+    @Test(dataProvider = "stringDifferentRegister")
     public void shouldFindCountryIgnoreCase(String nameCountry, String substring) {
         countries.add(new Country(nameCountry));
-        assertFalse(countries.find(substring).isEmpty());
+        assertFalse(countries.find(substring).contains(new Country(nameCountry)));
     }
 
-
+    @Test()
+    public void shouldNoFindCountryWithOtherName() {
+        countries.add(new Country("FindSearch"));
+        assertFalse(countries.find("FindSearchLong").contains(new Country("FindSearch")));
+    }
 }
