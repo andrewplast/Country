@@ -44,7 +44,12 @@ public class InMemoryCountryDAO implements CountryDAO {
     }
 
     public void delete(Country country) {
-        countries.remove(country);
+        for (Country c : countries) {
+            if (c.getName().equals(country.getName())) {
+                countries.remove(c);
+                break;
+            }
+        }
     }
 
     public void add(Country country) {
@@ -54,5 +59,13 @@ public class InMemoryCountryDAO implements CountryDAO {
 
     private boolean nameContainsSubstring(Country country, String substring) {
         return country.getName().toUpperCase().contains(substring.toUpperCase());
+    }
+
+    public boolean contains(Country country) {
+        for (Country c : countries) {
+            if (c.getName().equals(country.getName()))
+                return true;
+        }
+        return false;
     }
 }

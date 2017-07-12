@@ -13,4 +13,6 @@ interface CountryDAO {
     void delete(Country country);
 
     void add(Country country);
+
+    boolean contains(Country country);
 }

@@ -18,7 +18,7 @@ public class InMemoryCountryDAOTest {
 
     @Test
     public void shouldGetAllCountries() {
-        assertEquals(sut.getAll(), 18);
+        assertEquals(sut.getAll().size(), 18);
     }
 
     @Test
@@ -31,11 +31,11 @@ public class InMemoryCountryDAOTest {
     @Test
     public void shouldDeleteCountry() {
         Country country = new Country("Россия");
-        assertTrue(sut.getAll().contains(country));
+        assertTrue(sut.contains(country));
 
         sut.delete(country);
 
-        assertFalse(sut.getAll().contains(country));
+        assertFalse(sut.contains(country));
     }
 
     @Test(dataProvider = "stringWithSubstringForSearch")

@@ -37,8 +37,11 @@ public class XLSCountryDAO implements CountryDAO {
     }
 
     public void delete(Country country) {
-        if (countries.contains(country)) {
-            countries.remove(country);
+        for (Country c : countries) {
+            if (c.getName().equals(country.getName())) {
+                countries.remove(c);
+                break;
+            }
         }
     }
 
@@ -75,5 +78,13 @@ public class XLSCountryDAO implements CountryDAO {
                 add(new Country(cell.getStringCellValue()));
             }
         }
+    }
+
+    public boolean contains(Country country) {
+        for (Country c : countries) {
+            if (c.getName().equals(country.getName()))
+                return true;
+        }
+        return false;
     }
 }
