@@ -50,7 +50,7 @@ public class InMemoryCountryDAOTest {
 
     @Test
     public void shouldNotFindCountryWithOtherName() {
-        assertFalse(sut.find("FindSearchLong").contains(new Country("FindSearch")));
+        assertFalse(sut.find("OtherName").contains(new Country("FindSearch")));
     }
 
 
