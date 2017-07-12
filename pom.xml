@@ -24,6 +24,22 @@
                     <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.6.v20170531</version>
+                <configuration>
+                    <!--httpConnector-->
+                        <!--host>localhost</host-->
+                        <!--port>9999</port-->
+                    <!--/httpConnector-->
+                    <stopPort>9966</stopPort>
+                    <stopKey>foo</stopKey>
+                    <stopWait>10</stopWait>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
     <dependencies>
@@ -71,6 +87,11 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.owlike</groupId>
+            <artifactId>genson</artifactId>
+            <version>1.4</version>
         </dependency>
     </dependencies>
 </project>

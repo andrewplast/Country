@@ -9,71 +9,67 @@ import static org.testng.Assert.*;
 
 public class InMemoryCountryDAOTest {
 
-    private InMemoryCountryDAO countries;
+    private InMemoryCountryDAO sut;
 
     @BeforeMethod
-    public void canInitClass() {
-        countries = new InMemoryCountryDAO();
-    }
-
-    @Test
-    public void shouldCreateInMermoryCountryDAO() {
-        assertNotNull(new InMemoryCountryDAO());
+    public void setUp() {
+        sut = new InMemoryCountryDAO();
     }
 
     @Test
     public void shouldGetAllCountries() {
-        assertFalse(countries.getAll().isEmpty());
+        assertEquals(sut.getAll(), 18);
     }
 
-    @Test()
+    @Test
     public void shouldAddCountry() {
-        Country add = new Country("Add");
-        countries.add(add);
-        assertTrue(countries.getAll().contains(add));
+        Country country = new Country("Add");
+        sut.add(country);
+        assertTrue(sut.getAll().contains(country));
     }
 
-    @Test()
+    @Test
     public void shouldDeleteCountry() {
-        Country delete = new Country("Delete");
-        countries.add(delete);
-        countries.delete(delete);
-        assertFalse(countries.getAll().contains(delete));
+        Country country = new Country("Россия");
+        assertTrue(sut.getAll().contains(country));
+
+        sut.delete(country);
+
+        assertFalse(sut.getAll().contains(country));
     }
+
+    @Test(dataProvider = "stringWithSubstringForSearch")
+    public void shouldFindCountryBySubstring(String substring) {
+        assertFalse(sut.find(substring).contains(new Country("test")));
+    }
+
+    @Test(dataProvider = "stringDifferentRegister")
+    public void shouldFindCountryIgnoreCase(String substring) {
+        assertFalse(sut.find(substring).contains(new Country("test")));
+    }
+
+    @Test
+    public void shouldNotFindCountryWithOtherName() {
+        assertFalse(sut.find("FindSearchLong").contains(new Country("FindSearch")));
+    }
+
 
     @DataProvider(name = "stringWithSubstringForSearch")
     public Object[][] stringWithSubstringForSearch() {
         return new Object[][]{
-                {"TEST", "TE"},
-                {"test", "est"},
-                {"Test", "Test"}
+                {"test"},
+                {"tes"},
+                {"te"}
         };
-    }
-
-    @Test(dataProvider = "stringWithSubstringForSearch")
-    public void shouldFindCountryBySubstring(String nameCountry, String substring) {
-        countries.add(new Country(nameCountry));
-        assertFalse(countries.find(substring).contains(new Country(nameCountry)));
     }
 
     @DataProvider(name = "stringInDifferentRegister")
     public Object[][] stringDifferentRegister() {
         return new Object[][]{
-                {"TEST", "test"},
-                {"test", "TEST"},
-                {"Test", "tEST"}
+                {"TEST"},
+                {"test"},
+                {"Test"},
+                {"teSt"}
         };
-    }
-
-    @Test(dataProvider = "stringDifferentRegister")
-    public void shouldFindCountryIgnoreCase(String nameCountry, String substring) {
-        countries.add(new Country(nameCountry));
-        assertFalse(countries.find(substring).contains(new Country(nameCountry)));
-    }
-
-    @Test()
-    public void shouldNoFindCountryWithOtherName() {
-        countries.add(new Country("FindSearch"));
-        assertFalse(countries.find("FindSearchLong").contains(new Country("FindSearch")));
     }
 }

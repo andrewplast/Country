@@ -2,7 +2,7 @@ package country;
 
 public class Country {
 
-    private final String name;
+    private String name;
 
     public Country(String name) {
         this.name = name;
@@ -12,4 +12,7 @@ public class Country {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

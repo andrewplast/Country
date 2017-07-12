@@ -11,9 +11,6 @@ public class InMemoryCountryDAO implements CountryDAO {
 
     public InMemoryCountryDAO() {
         add(new Country("Россия"));
-        add(new Country("Россия"));
-        add(new Country("Россия"));
-        add(new Country("Россия"));
         add(new Country("Украина"));
         add(new Country("США"));
         add(new Country("Англия"));
